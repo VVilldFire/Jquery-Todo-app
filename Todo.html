@@ -31,6 +31,12 @@
         })
   </script>
 
+  <style>
+      
+
+
+  </style>
+
 </head>
 
 <body>
@@ -48,6 +54,16 @@
 
         var todos = []
 
+        $('#inputField').keydown(function(event){
+                
+            if(event.which == 13){
+
+                addTodo()
+
+            }
+
+        })
+
         function addTodo(){
 
             var todo = $('#inputField').val()
@@ -58,14 +74,30 @@
 
                 <p>
 
-                    ${todo} 
-                    <i class = "fas fa-trash-alt" onclick = 'pressTrashbox()'></i>
+                    ${todo}
+                    <i id = "trashIcon" class = "fas fa-trash-alt" onclick = 'pressTrashbox()'></i>
 
                 </p>
 
             `).appendTo('#addingThings')
 
+
+
             $('#inputField').val(' ')
+
+
+
+            $("p")
+            .mouseover(function() {
+
+                $( "svg:first", this ).css("display", "inline")
+                    
+            })
+            .mouseout(function() {
+
+                $( "svg:first", this ).css("display", "none")
+
+            })
 
         }
 
@@ -80,6 +112,7 @@
 </body>
 
 </html>
+
 
 
 
