@@ -128,7 +128,7 @@
 
         }
 
-        var storage = JSON.parse(localStorage.getItem('listOfTodos'))
+        var storage = JSON.parse(localStorage.getItem('listOfTodos')) || []
 
         reload()
 
