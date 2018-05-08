@@ -10,8 +10,6 @@
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
         crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="style.css">
-
     <script
         defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" 
         integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" 
@@ -67,7 +65,7 @@
 
         </div>
 
-        <div class = "col-md-6">
+        <div id = "specialList" class = "col-md-6">
 
             <ul>
                 
@@ -99,9 +97,9 @@
 
             var todo = $('#inputField').val()
 
-            $('#inputField').val(' ')
-
             todos.push(todo)
+
+            localStorage.setItem('listOfTodos', JSON.stringify(todos))
 
             $(`
 
@@ -126,6 +124,45 @@
 
             })
 
+            $('#inputField').val(' ')
+
+        }
+
+        var storage = JSON.parse(localStorage.getItem('listOfTodos'))
+
+        reload()
+
+        function reload(){
+
+            todos = storage
+
+            for(var i = 0; i < storage.length; i++){
+
+                $(`
+
+                    <p>
+
+                        ${storage[i]}
+                        <i id = "trashIcon" class = "fas fa-trash-alt" onclick = 'pressTrashbox()'></i>
+
+                    </p>
+
+                `).appendTo('#addingThings')
+
+                $("p")
+                .mouseover(function() {
+
+                    $( "svg:first", this ).css("display", "inline")
+                        
+                })
+                .mouseout(function() {
+
+                    $( "svg:first", this ).css("display", "none")
+
+                })
+    
+            }
+
         }
 
         function pressTrashbox(){
@@ -139,6 +176,9 @@
 </body>
 
 </html>
+
+
+
 
 
 
