@@ -101,7 +101,16 @@
 
             localStorage.setItem('listOfTodos', JSON.stringify(todos))
 
-             $(`<p>${storage[i]}<i id = "trashIcon" class = "fas fa-trash-alt" onclick = 'pressTrashbox()'></i></p>`).appendTo('#addingThings')
+            $(`
+
+                <p>
+
+                    ${todo}
+                    <i id = "trashIcon" class = "fas fa-trash-alt" onclick = 'pressTrashbox()'></i>
+
+                </p>
+
+            `).appendTo('#addingThings')
 
             $("p")
             .mouseover(function() {
@@ -129,7 +138,16 @@
 
             for(var i = 0; i < storage.length; i++){
 
-                $(`<p>${storage[i]}<i id = "trashIcon" class = "fas fa-trash-alt" onclick = 'pressTrashbox()'></i></p>`).appendTo('#addingThings')
+                $(`
+
+                    <p>
+
+                        ${storage[i]}
+                        <i id = "trashIcon" class = "fas fa-trash-alt" onclick = 'pressTrashbox()'></i>
+
+                    </p>
+
+                `).appendTo('#addingThings')
 
                 $("p")
                 .mouseover(function() {
@@ -155,7 +173,7 @@
             localStorage.setItem('listOfTodos', JSON.stringify(todos))
 
         }
-        
+
     </script>
 
 </body>
