@@ -37,19 +37,23 @@
             $( "#addingThings" ).sortable()
             $( "#addingThings" ).disableSelection()
         })
-  </script>
+    </script>
 
-  <style>
+    <style>
       
+       /* body{
 
+            background-color: grey;
 
-  </style>
+        }*/
+
+    </style>
 
 </head>
 
 <body>
 
-    <div class = "row">
+    <div class = "row" id = "page-base">
 
         <div class = "col-md-1">
         </div>
@@ -60,14 +64,22 @@
                 <font size="20">To Do List</font>
             </h2>
 
-            <div id="addingThings">
+            <div id="buttons">
+
                 <input id="inputField" placeholder="Type something">
                 <button class="button" id="add" onclick="addTodo()">add</button>
+
+            </div>
+
+            <div>
+
+
+
             </div>
 
         </div>
 
-        <div id = "specialList" class = "col-md-6">
+        <!-- <div id = "specialList" class = "col-md-6">
 
             <ul>
                 
@@ -78,12 +90,17 @@
             </ul>
 
         </div>
-
+ -->
     </div>
         
     <script>
 
-        var todos = []
+        var storage = JSON.parse(localStorage.getItem('listOfTodos')) || []
+
+        reload()
+
+
+
 
         $('#inputField').keydown(function(event){
                 
@@ -99,15 +116,33 @@
 
             var todo = $('#inputField').val()
 
-            todos.push(todo)
+            storage.push(todo)
+            storage.sort()
+            localStorage.setItem('listOfTodos', JSON.stringify(storage))
 
-            localStorage.setItem('listOfTodos', JSON.stringify(todos))
+            showTodos(todo)
+
+            $('#inputField').val(' ')
+
+        }
+
+        function reload(){
+
+            for(var x = 0; x < storage.length; x++){
+
+                showTodos(storage[x])
+
+            }
+
+        }
+
+        function showTodos(i){
 
             $(`
 
                 <p>
 
-                    ${todo}
+                    ${i}
                     <i id = "trashIcon" class = "fas fa-trash-alt" onclick = 'pressTrashbox()'></i>
 
                 </p>
@@ -126,53 +161,14 @@
 
             })
 
-            $('#inputField').val(' ')
-
-        }
-
-        var storage = JSON.parse(localStorage.getItem('listOfTodos')) || []
-
-        reload()
-
-        function reload(){
-
-            todos = storage
-
-            for(var i = 0; i < storage.length; i++){
-
-                $(`
-
-                    <p>
-
-                        ${storage[i]}
-                        <i id = "trashIcon" class = "fas fa-trash-alt" onclick = 'pressTrashbox()'></i>
-
-                    </p>
-
-                `).appendTo('#addingThings')
-
-                $("p")
-                .mouseover(function() {
-
-                    $( "svg:first", this ).css("display", "inline")
-                        
-                })
-                .mouseout(function() {
-
-                    $( "svg:first", this ).css("display", "none")
-
-                })
-    
-            }
-
         }
 
         function pressTrashbox(){
 
-            event.target.closest('p').remove()
+            event.target.closest('p').remove()           
 
-            todos.splice(todos.indexOf(event.target.closest('p').innerText), 1)
-            localStorage.setItem('listOfTodos', JSON.stringify(todos))
+            storage.splice(storage.indexOf(event.target.closest('p').innerText), 1)
+            localStorage.setItem('listOfTodos', JSON.stringify(storage))
 
         }
 
